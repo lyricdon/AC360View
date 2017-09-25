@@ -12,10 +12,9 @@
 
 typedef NS_ENUM(NSInteger, ACGLKViewControllerPriority) {
     ACGLKViewControllerPriorityNone = 0,
-    ACGLKViewControllerPriorityLow,
-    ACGLKViewControllerPriorityNormal,
-    ACGLKViewControllerPriorityHigh,
-    ACGLKViewControllerPriorityManual, // 手动点击优先度最高
+    ACGLKViewControllerPriorityNormal = 1,
+    ACGLKViewControllerPriorityHigh = 2,
+    ACGLKViewControllerPriorityManual = 3 // 手动点击优先度最高
 };
 
 @interface ACGLKViewController : GLKViewController <AC360TableViewCellDelegate>

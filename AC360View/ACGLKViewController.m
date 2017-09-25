@@ -14,16 +14,21 @@
 
 @implementation ACGLKViewController
 
+static ACGLKViewController *_instance = nil;
+
 + (instancetype)shareController
 {
-    return [[self alloc] init];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _instance = [[self alloc] init];
+    });
+    return _instance;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     _panoramaView = [[PanoramaView alloc] initWithFrame:CGRectMake(50, 50, 300, 200)];
-//    [_panoramaView setImageWithName:@"pano_sphere2.jpg"];
     [_panoramaView setOrientToDevice:YES];
     [_panoramaView setTouchToPan:YES];
     [_panoramaView setPinchToZoom:YES];
@@ -37,7 +42,7 @@
     [_panoramaView draw];
 }
 
-- (void)outOfScreen:(AC360TableViewCell *)cell bitMapImage:(UIImage *)image
+- (void)outOfScreen:(AC360TableViewCell *)cell
 {
     if (self.view.superview)
     {
@@ -48,6 +53,13 @@
 
 - (void)centerOnScreen:(AC360TableViewCell *)cell bitMapImage:(UIImage *)image
 {
+    if (self.view.superview)
+    {
+        [self.view removeFromSuperview];
+        [_panoramaView setImage:nil];
+    }
+    
+    NSLog(@"showing %@", cell);
     [_panoramaView setImage:image];
     [cell.contentView addSubview:self.view];
 }

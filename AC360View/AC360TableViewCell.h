@@ -21,4 +21,6 @@
 
 @property (weak, nonatomic) id <AC360TableViewCellDelegate> delegate;
 
+@property (nonatomic, strong) id source;
+
 @end
